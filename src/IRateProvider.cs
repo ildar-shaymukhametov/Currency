@@ -1,6 +1,6 @@
 namespace src
 {
-    public interface IConvertionRatesProvider
+    public interface IRateProvider
     {
         decimal GetRate(Currency from, Currency to);
     }

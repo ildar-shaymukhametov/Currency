@@ -2,9 +2,9 @@ namespace src
 {
     public class CurrencyConverter
     {
-        private readonly IConvertionRatesProvider rateProvider;
+        private readonly IRateProvider rateProvider;
 
-        public CurrencyConverter(IConvertionRatesProvider rateProvider)
+        public CurrencyConverter(IRateProvider rateProvider)
         {
             this.rateProvider = rateProvider;
         }

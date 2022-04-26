@@ -13,7 +13,7 @@ public class UnitTest1
         var targetCurrency = Currency.USD;
 
         var money = new Money(Currency.RUB, 100M);
-        var rateProvider = Substitute.For<IConvertionRatesProvider>();
+        var rateProvider = Substitute.For<IRateProvider>();
         rateProvider.GetRate(money.Currency, targetCurrency).Returns(rate);
         var sut = new CurrencyConverter(rateProvider);
 
@@ -34,7 +34,7 @@ public class UnitTest1
 
         var moneyA = new Money(Currency.RUB, 100M);
         var moneyB = new Money(Currency.USD, 30M);
-        var rateProvider = Substitute.For<IConvertionRatesProvider>();
+        var rateProvider = Substitute.For<IRateProvider>();
         rateProvider.GetRate(moneyA.Currency, targetCurrency).Returns(rubEurRate);
         rateProvider.GetRate(moneyB.Currency, targetCurrency).Returns(usdEurRate);
         var sut = new CurrencyConverter(rateProvider);
