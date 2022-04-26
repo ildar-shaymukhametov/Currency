@@ -59,6 +59,34 @@ public class UnitTest1
         Assert.Equal(expectedCurrency, actualMoney.Currency);
     }
 
+    [Fact]
+    public void Subtracts_one_currency_from_another()
+    {
+        var rateA = GetRandomNumber();
+        var rateB = GetRandomNumber();
+        var amountA = GetRandomNumber();
+        var amountB = GetRandomNumber();
+
+        var currencyA = GetRandomCurrency();
+        var currencyB = GetRandomCurrency();
+        var targetCurrency = GetRandomCurrency();
+
+        var moneyA = new Money<string>(currencyA, amountA);
+        var moneyB = new Money<string>(currencyB, amountB);
+
+        var rateProvider = Substitute.For<IRateProvider>();
+        rateProvider.GetRate(currencyA, targetCurrency).Returns(rateA);
+        rateProvider.GetRate(currencyB, targetCurrency).Returns(rateB);
+
+        var sut = new CurrencyConverter(rateProvider);
+        var actualMoney = sut.Subtract(moneyA, moneyB, targetCurrency);
+
+        var expectedCurrency = targetCurrency;
+        var expectedAmount = rateA * amountA - rateB * amountB;
+        Assert.Equal(expectedAmount, actualMoney.Amount);
+        Assert.Equal(expectedCurrency, actualMoney.Currency);
+    }
+
     private static ICurrency<string> GetRandomCurrency()
     {
         var result = Substitute.For<ICurrency<string>>();

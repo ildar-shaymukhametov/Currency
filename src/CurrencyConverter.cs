@@ -23,5 +23,14 @@ namespace src
 
             return new Money<TTargetCurrency>(targetCurrency, sum);
         }
+
+        public Money<TTargetCurrency> Subtract<TMoneyACurrency, TMoneyBCurrency, TTargetCurrency>(Money<TMoneyACurrency> moneyA, Money<TMoneyBCurrency> moneyB, ICurrency<TTargetCurrency> targetCurrency)
+        {
+            var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
+            var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
+            var sum = rateA * moneyA.Amount - rateB * moneyB.Amount;
+
+            return new Money<TTargetCurrency>(targetCurrency, sum);
+        }
     }
 }
