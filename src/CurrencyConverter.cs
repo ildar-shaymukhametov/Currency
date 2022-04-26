@@ -32,5 +32,9 @@ namespace src
 
             return new Money<TTargetCurrency>(targetCurrency, sum);
         }
+
+        // можно создать один метод PerformOperation и передавать туда алгоритм типа Addition, Subtration
+        // это устранит дублирование кода
+        // но усложнит пользование конвертером
     }
 }

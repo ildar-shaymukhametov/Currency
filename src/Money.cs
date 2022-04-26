@@ -8,6 +8,8 @@ namespace src
             Amount = amount;
         }
 
+        // можно сделать их скрытыми
+        // и применить implicit operators для прибавления/отнимания
         public ICurrency<T> Currency { get; }
         public decimal Amount { get; }
     }
