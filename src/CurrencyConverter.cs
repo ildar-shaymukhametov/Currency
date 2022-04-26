@@ -19,9 +19,9 @@ namespace src
         {
             var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
             var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
-            var result = rateA * moneyA.Amount + rateB * moneyB.Amount;
+            var sum = rateA * moneyA.Amount + rateB * moneyB.Amount;
 
-            return new Money<TTargetCurrency>(targetCurrency, result);
+            return new Money<TTargetCurrency>(targetCurrency, sum);
         }
     }
 }
