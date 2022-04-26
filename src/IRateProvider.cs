@@ -2,6 +2,6 @@ namespace src
 {
     public interface IRateProvider
     {
-        decimal GetRate(Currency from, Currency to);
+        decimal GetRate<TSourceCurrency, TTargetCurrency>(ICurrency<TSourceCurrency> from, ICurrency<TTargetCurrency> to);
     }
 }

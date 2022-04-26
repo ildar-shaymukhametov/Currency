@@ -1,14 +1,14 @@
 namespace src
 {
-    public class Money
+    public class Money<T>
     {
-        public Money(Currency currency, decimal amount)
+        public Money(ICurrency<T> currency, decimal amount)
         {
-            Amount = amount;
             Currency = currency;
+            Amount = amount;
         }
 
+        public ICurrency<T> Currency { get; }
         public decimal Amount { get; }
-        public Currency Currency { get; }
     }
 }
