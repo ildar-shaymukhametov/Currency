@@ -3,5 +3,6 @@ namespace src;
 public enum Currency
 {
     RUB,
-    USD
+    USD,
+    EUR
 }
