@@ -19,7 +19,7 @@ namespace src
         {
             var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
             var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
-            var sum = rateA * moneyA.Amount + rateB * moneyB.Amount;
+            var sum = Convert(moneyA, targetCurrency).Amount + Convert(moneyB, targetCurrency).Amount;
 
             return new Money<TTargetCurrency>(targetCurrency, sum);
         }
@@ -28,7 +28,7 @@ namespace src
         {
             var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
             var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
-            var sum = rateA * moneyA.Amount - rateB * moneyB.Amount;
+            var sum = Convert(moneyA, targetCurrency).Amount - Convert(moneyB, targetCurrency).Amount;
 
             return new Money<TTargetCurrency>(targetCurrency, sum);
         }
