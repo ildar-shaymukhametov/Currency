@@ -19,10 +19,11 @@ public class UnitTest1
         targetCurrency.Value.Returns(GetRandomString());
 
         var money = new Money<string>(sourceCurrency, 100M);
+
         var rateProvider = Substitute.For<IRateProvider>();
         rateProvider.GetRate(money.Currency, targetCurrency).Returns(rate);
-        var sut = new CurrencyConverter(rateProvider);
 
+        var sut = new CurrencyConverter(rateProvider);
         var actualMoney = sut.Convert(money, targetCurrency);
 
         var expectedCurrency = targetCurrency;
