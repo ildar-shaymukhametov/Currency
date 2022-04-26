@@ -12,11 +12,8 @@ public class UnitTest1
     {
         var rate = 0.013M;
 
-        var sourceCurrency = Substitute.For<ICurrency<string>>();
-        sourceCurrency.Value.Returns(GetRandomString());
-
-        var targetCurrency = Substitute.For<ICurrency<string>>();
-        targetCurrency.Value.Returns(GetRandomString());
+        var sourceCurrency = GetRandomCurrency();
+        var targetCurrency = GetRandomCurrency();
 
         var money = new Money<string>(sourceCurrency, 100M);
 
@@ -32,25 +29,15 @@ public class UnitTest1
         Assert.Equal(expectedCurrency, actualMoney.Currency);
     }
 
-    private static string GetRandomString()
-    {
-        return Path.GetFileNameWithoutExtension(Path.GetRandomFileName());
-    }
-
     [Fact]
     public void Adds_one_currency_to_another()
     {
         var rateA = 0.013M;
         var rateB = 0.94M;
 
-        var currencyA = Substitute.For<ICurrency<string>>();
-        currencyA.Value.Returns(GetRandomString());
-
-        var currencyB = Substitute.For<ICurrency<string>>();
-        currencyA.Value.Returns(GetRandomString());
-
-        var targetCurrency = Substitute.For<ICurrency<string>>();
-        targetCurrency.Value.Returns(GetRandomString());
+        var currencyA = GetRandomCurrency();
+        var currencyB = GetRandomCurrency();
+        var targetCurrency = GetRandomCurrency();
 
         var moneyA = new Money<string>(currencyA, 100M);
         var moneyB = new Money<string>(currencyB, 30M);
@@ -66,5 +53,18 @@ public class UnitTest1
         var expectedAmount = 29.5M;
         Assert.Equal(expectedAmount, actualMoney.Amount);
         Assert.Equal(expectedCurrency, actualMoney.Currency);
+    }
+
+    private static ICurrency<string> GetRandomCurrency()
+    {
+        var result = Substitute.For<ICurrency<string>>();
+        result.Value.Returns(GetRandomString());
+
+        return result;
+    }
+
+    private static string GetRandomString()
+    {
+        return Path.GetFileNameWithoutExtension(Path.GetRandomFileName());
     }
 }
