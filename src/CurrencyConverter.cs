@@ -15,13 +15,13 @@ namespace src
             return new Money<TTargetCurrency>(to, money.Amount * rate);
         }
 
-        // public Money Add(Money moneyA, Money moneyB, Currency targetCurrency)
-        // {
-        //     var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
-        //     var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
-        //     var result = rateA * moneyA.Amount + rateB * moneyB.Amount;
+        public Money<TTargetCurrency> Add<TMoneyACurrency, TMoneyBCurrency, TTargetCurrency>(Money<TMoneyACurrency> moneyA, Money<TMoneyBCurrency> moneyB, ICurrency<TTargetCurrency> targetCurrency)
+        {
+            var rateA = rateProvider.GetRate(moneyA.Currency, targetCurrency);
+            var rateB = rateProvider.GetRate(moneyB.Currency, targetCurrency);
+            var result = rateA * moneyA.Amount + rateB * moneyB.Amount;
 
-        //     return new Money(targetCurrency, result);
-        // }
+            return new Money<TTargetCurrency>(targetCurrency, result);
+        }
     }
 }

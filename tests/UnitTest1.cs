@@ -36,25 +36,34 @@ public class UnitTest1
         return Path.GetFileNameWithoutExtension(Path.GetRandomFileName());
     }
 
-    // [Fact]
-    // public void Adds_one_currency_to_another()
-    // {
-    //     var rubEurRate = 0.013M;
-    //     var usdEurRate = 0.94M;
-    //     var targetCurrency = Currency.EUR;
+    [Fact]
+    public void Adds_one_currency_to_another()
+    {
+        var rateA = 0.013M;
+        var rateB = 0.94M;
 
-    //     var moneyA = new Money(Currency.RUB, 100M);
-    //     var moneyB = new Money(Currency.USD, 30M);
-    //     var rateProvider = Substitute.For<IRateProvider>();
-    //     rateProvider.GetRate(moneyA.Currency, targetCurrency).Returns(rubEurRate);
-    //     rateProvider.GetRate(moneyB.Currency, targetCurrency).Returns(usdEurRate);
-    //     var sut = new CurrencyConverter(rateProvider);
+        var currencyA = Substitute.For<ICurrency<string>>();
+        currencyA.Value.Returns(GetRandomString());
 
-    //     var actualMoney = sut.Add(moneyA, moneyB, targetCurrency);
+        var currencyB = Substitute.For<ICurrency<string>>();
+        currencyA.Value.Returns(GetRandomString());
 
-    //     var expectedCurrency = targetCurrency;
-    //     var expectedAmount = 29.5M;
-    //     Assert.Equal(expectedAmount, actualMoney.Amount);
-    //     Assert.Equal(expectedCurrency, actualMoney.Currency);
-    // }
+        var targetCurrency = Substitute.For<ICurrency<string>>();
+        targetCurrency.Value.Returns(GetRandomString());
+
+        var moneyA = new Money<string>(currencyA, 100M);
+        var moneyB = new Money<string>(currencyB, 30M);
+
+        var rateProvider = Substitute.For<IRateProvider>();
+        rateProvider.GetRate(currencyA, targetCurrency).Returns(rateA);
+        rateProvider.GetRate(currencyB, targetCurrency).Returns(rateB);
+
+        var sut = new CurrencyConverter(rateProvider);
+        var actualMoney = sut.Add(moneyA, moneyB, targetCurrency);
+
+        var expectedCurrency = targetCurrency;
+        var expectedAmount = 29.5M;
+        Assert.Equal(expectedAmount, actualMoney.Amount);
+        Assert.Equal(expectedCurrency, actualMoney.Currency);
+    }
 }
